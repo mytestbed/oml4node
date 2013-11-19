@@ -1,0 +1,39 @@
+{
+  "name": "oml",
+  "description": "Library to emit OML measurement streams.",
+  "homepage": "http://oml.mytestbed.net",
+  "keywords": [
+    "util",
+    "functional",
+    "server",
+    "client",
+    "browser"
+  ],
+  "author": {
+    "name": "Max Ott",
+    "email": "max.ott@nicta.com.au"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mytestbed/oml.node.git"
+  },
+  "main": "oml.js",
+  "version": "0.1",
+  // "devDependencies": {
+    // "phantomjs": "1.9.0-1"
+  // },
+  // "scripts": {
+    // "test": "phantomjs test/vendor/runner.js test/index.html?noglobals=true"
+  // },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    }
+  ],
+  "files": [
+    "oml.js",
+    "LICENSE"
+  ],
+  "readmeFilename": "README.md",
+}
