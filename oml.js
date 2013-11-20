@@ -28,6 +28,8 @@ var NoOp = false; // Skip OML when --oml-noop is set
 module.exports.init = function(opts) {
   if (Sock) return true;
 
+  if (! opts) { opts = {}; };
+  NoOp = (opts.noop == true);
   parseArgv(opts);
   if (NoOp) { return true; }
   Sock = connect(opts);
@@ -70,10 +72,9 @@ function parseArgv(opts) {
       i--;
     }
   }
-  if (! opts.collect) {
-    console.log("Missing OML options '--oml-collect URI'");
-    process.exit(1);
-  }
+  if (NoOp) { return true; };
+
+  if (! opts.collect) { opts.collect = 'file:-'; }
   var uri = opts.collect.split(":");
   switch (uri.length) {
     case 1:
