@@ -1,13 +1,12 @@
 {
   "name": "oml",
-  "description": "Library to emit OML measurement streams.",
+  "description": "Module to emit OML measurement streams.",
   "homepage": "http://oml.mytestbed.net",
   "keywords": [
     "util",
-    "functional",
-    "server",
-    "client",
-    "browser"
+    "measurement",
+    "oml",
+    "client"
   ],
   "author": {
     "name": "Max Ott",
@@ -15,16 +14,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/mytestbed/oml.node.git"
+    "url": "git://github.com/mytestbed/oml4node.git"
   },
   "main": "oml.js",
-  "version": "0.1",
-  // "devDependencies": {
-    // "phantomjs": "1.9.0-1"
-  // },
-  // "scripts": {
-    // "test": "phantomjs test/vendor/runner.js test/index.html?noglobals=true"
-  // },
+  "version": "0.1.1",
   "licenses": [
     {
       "type": "MIT",
@@ -35,5 +28,5 @@
     "oml.js",
     "LICENSE"
   ],
-  "readmeFilename": "README.md",
+  "readmeFilename": "README.md"
 }
