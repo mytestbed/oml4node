@@ -25,12 +25,15 @@ var NoOp = false; // Skip OML when --oml-noop is set
 //
 // @returns true if successful, false otherwise (need a better solution to signal errors)
 //
-module.exports.init = function(opts) {
+module.exports.init = function(opts, cfgFunc) {
   if (Sock) return true;
 
   if (! opts) { opts = {}; };
   NoOp = (opts.noop == true);
   parseArgv(opts);
+  if (cfgFunc && _.isFunction(cfgFunc)) {
+    cfgFunc();
+  }
   if (NoOp) { return true; }
   Sock = connect(opts);
   return true;
@@ -89,11 +92,14 @@ function parseArgv(opts) {
       }
       break;
     case 3:
+      p = uri[0];
+      if (! (p.indexOf("tcp") == 0 || p.indexOf("file") == 0)) {
+        module.exports.logger.fatal("Wrong format for OML options '--oml-collect URI', should be 'tcp|file:name[:port]'");
+      }
       opts.uri = uri;
       break; // OK
     default:
-      console.log("Wrong format for OML options '--oml-collect URI', should be 'tcp|file:name[:port]'");
-      process.exit(1);
+      module.exports.logger.fatal("Wrong format for OML options '--oml-collect URI', should be 'tcp|file:name[:port]'");
   }
   if (! opts.id) {
     opts.id = os.hostname() + '-' + process.pid;
@@ -145,12 +151,15 @@ function connect(opts) {
 
   var out = null;
 
-  function startConnection(uri) {
+  function startConnection() {
+    var uri = opts.uri;
     var host = uri[1];
     var port = uri[2];
 
+
+    module.exports.logger.debug("Connecting to '" + host + ':' + port + "'.");
     connection = net.connect({host: host, port:  port}, function() {
-      console.log('client connected');
+      module.exports.logger.warn('client connected');
       connected = true;
 
       sendHeader(connection);
@@ -165,14 +174,14 @@ function connect(opts) {
       return connection.write(msg + "\n");
     };
 
-    connection.on('error', function() {
-      console.log('client error');
+    connection.on('error', function(err) {
+      module.exports.logger.warn('client error - ' + err);
       connected = false;
       setTimeout(startConnection, 1000);
     });
 
     connection.on('end', function() {
-      console.log('client disconnected');
+      module.exports.logger.info('client disconnected');
       connected = false;
       setTimeout(startConnection, 1000);
     });
@@ -269,7 +278,7 @@ module.exports.mp = function(name, schema) {
       if (m[i + 3] != val) {
         // This is a VERY weird bug where only on the first time through appending a
         // value actually ends up as the first element
-        console.log("BUG: Array");
+        module.exports.logger.warn("BUG: Array");
         return true;
       }
       //console.log("N>>>> " + m + '----' + m[0]);
@@ -281,3 +290,21 @@ module.exports.mp = function(name, schema) {
 
   return my;
 };
+
+module.exports.logger = function() {
+  var my = {};
+  my.debug = function(msg) { console.log('DEBUG(oml): ' + msg); };
+  my.info = function(msg) { console.log(' INFO(oml): ' + msg); };
+  my.warn = function(msg) { console.log(' WARN(oml): ' + msg); };
+  my.error = function(msg) { console.log('ERROR(oml): ' + msg); };
+  my.fatal = function(msg) {
+    console.log('FATAL(oml): ' + msg);
+    process.exit(1);
+  };
+
+  return my;
+}();
+
+
+
+
