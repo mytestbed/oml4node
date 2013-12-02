@@ -159,7 +159,7 @@ function connect(opts) {
 
     module.exports.logger.debug("Connecting to '" + host + ':' + port + "'.");
     connection = net.connect({host: host, port:  port}, function() {
-      module.exports.logger.warn('client connected');
+      module.exports.logger.info('client connected');
       connected = true;
 
       sendHeader(connection);
@@ -273,13 +273,19 @@ module.exports.mp = function(name, schema) {
           break;
       }
       //console.log("VAL: " + val);
+      //console.log("m: " + m);
       //m.push(val);
       m[i + 3] = val;
       if (m[i + 3] != val) {
         // This is a VERY weird bug where only on the first time through appending a
         // value actually ends up as the first element
-        module.exports.logger.warn("BUG: Array");
-        return true;
+        module.exports.logger.info("BUG: Array", m);
+        m[i + 3] = val; // let's try again
+        if (m[i + 3] != val) {
+          module.exports.logger.warn("BUG: Can't fix Array", m);
+          return true;
+        }
+        m[0] = Sock.ts();
       }
       //console.log("N>>>> " + m + '----' + m[0]);
     }
