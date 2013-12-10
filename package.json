@@ -16,20 +16,26 @@
     "type": "git",
     "url": "git://github.com/mytestbed/oml4node.git"
   },
-  "main": "oml.js",
-  "version": "0.1.4",
+  "main": "./src/oml.js",
+  "version": "0.1.5",
   "licenses": [
     {
       "type": "MIT",
       "url": "http://opensource.org/licenses/MIT"
     }
   ],
+  "scripts": {
+    "test": "make test",
+    "prepublish": "make"
+  },
   "dependencies": {
     "underscore": "~1.5"
   },
-  "files": [
-    "oml.js",
-    "LICENSE"
-  ],
+  "devDependencies": {
+    "mocha": "~1",
+    "claire": "0.4.1",
+    "uglify-js": "2.4.x",
+    "istanbul": "0.1.x"
+  },
   "readmeFilename": "README.md"
 }
