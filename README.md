@@ -1,15 +1,31 @@
-oml4node
-========
+OML Client for Node.js
+=======================
+
+[![NPM version](https://badge.fury.io/js/oml.png)](http://badge.fury.io/js/oml)
+[![Build Status](https://travis-ci.org/mytestbed/oml4node.png)](https://travis-ci.org/mytestbed/oml4node)
+
+    % npm install oml
+
+<!--
+ * [GitHub pages][gh-pages]
+ * [API reference][gh-pages-apiref]
+-->
 
 An OML (client) module for node.js
 
+Project status:
 
-[![NPM version](https://badge.fury.io/js/oml.png)](http://badge.fury.io/js/oml)
+ - Expected to work
 
-Installation
-------------
+Not yet:
 
-    $ npm install oml
+ - Completely stable APIs
+ - Comprehensive tests
+ - Measured test coverage
+ - Comprehensive documentation
+ - Known to be used in production (if anyone *is* using it in
+   production, do let me know)
+
 
 API
 ---
