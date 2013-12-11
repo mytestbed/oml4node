@@ -9,6 +9,10 @@ ISTANBUL=./node_modules/istanbul/lib/cli.js
 all:
 
 publish:
+	npm version patch -m "Upgrade to %s for reasons"
+	npm publish
+
+publish-minor:
 	npm version minor -m "Upgrade to %s for reasons"
 	npm publish
 
