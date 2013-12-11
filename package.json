@@ -17,7 +17,7 @@
     "url": "git://github.com/mytestbed/oml4node.git"
   },
   "main": "./src/oml.js",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "licenses": [
     {
       "type": "MIT",
