@@ -8,6 +8,10 @@ ISTANBUL=./node_modules/istanbul/lib/cli.js
 
 all:
 
+publish:
+	npm version minor -m "Upgrade to %s for reasons"
+	npm publish
+
 clean:
 	rm -rf ./coverage
 
