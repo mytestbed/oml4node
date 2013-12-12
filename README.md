@@ -20,6 +20,8 @@ Project status:
 Not yet:
 
  - Completely stable APIs
+ - Reading from environment variables
+ - Supporting XML config files
  - Comprehensive tests
  - Measured test coverage
  - Comprehensive documentation
@@ -38,16 +40,23 @@ var oml = require('oml');
 //
 oml.init({appName: 'myApp'});
 
-// Creating a measurement point called 'foo' 
+// Creating a measurement point called 'm1' 
 // which will report the voltage of a specific generator
-//
-var m1 = oml.mp('foo', [['generator', oml.T.string], ['voltage', oml.T.int32]]);
+var m1 = oml.mp('foo', [['generator', oml.T.string], ['voltage', oml.T.double]]);
 
-// Send a measurement
-//
-m1('gen1', 221);
+// Send a measurement every 1 second
+var i = 0;
+var step = 15 / 180;
+setInterval(function() {
+  m1('gen1', Math.sin(i));
+  i += step
+});
 
 ```
+
+Check out the __examples__ directory for more examples.
+
+To get a full list of command line flags, start your application with the `--oml-help` flag.
 
 License
 -------
