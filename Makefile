@@ -12,10 +12,12 @@ publish:
 	git pull
 	npm version patch -m "Upgrade to %s for reasons"
 	git push
-	#npm publish
+	npm publish
 
 publish-minor:
+	git pull
 	npm version minor -m "Upgrade to %s for reasons"
+	git push
 	npm publish
 
 clean:

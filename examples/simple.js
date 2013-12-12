@@ -1,5 +1,5 @@
 
-var oml = require('../oml');
+var oml = require('../src/oml');
 
 //oml.init({host: 'localhost', port: 3003});
 oml.init({host: 'srv.mytestbed.net', port: 3003});

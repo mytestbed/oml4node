@@ -1,0 +1,72 @@
+#
+# Simple web site visualising an OML stream
+#
+server:
+  name: 'OML4Node'
+  page_title: 'OML4Node Example'
+  port: 4030
+
+data_sources:
+  - id: voltage
+    max_size: 200
+    omsp:
+      port: 3003
+      stream_name: gen_voltage
+
+widgets:
+  - id: main
+    name: Main
+    top_level: true
+    priority: 300
+    type: layout/two_columns/66_33
+    left:
+      - type: layout/stacked
+        info: This widget shows the voltage reported for varous generators
+        widgets:
+          - name: Generator
+            type: data/line_chart3
+            data_source:
+              name: voltage
+            mapping:
+              x_axis: oml_ts
+              y_axis:
+                property: voltage
+              group_by: generator
+            axis:
+              x:
+                legend: Time (sec)
+              y:
+                legend: V
+                ticks:
+                  format: ".2s"
+
+          - name: Table
+            type: data/table2
+            data_source:
+              name: voltage
+      - name: Noise
+        type: data/histogram2
+        info: This widget shows the distribution of the noise on the generator output.
+        density: true
+        data_source:
+          name: voltage
+        mapping:
+          value: noise
+          group_by: generator
+        axis:
+          x:
+            legend: Noise (V)
+            ticks:
+              format: ".2s"
+          y:
+            legend: Density
+
+    right:
+      - name: Description
+        type: text
+        content:
+          text: |
+            The charts on the left shows the voltage measured at multiple generators. The first one is
+            a line graph of the voltge, while the second one shows the distribution of the overlaid
+            noise.
+
